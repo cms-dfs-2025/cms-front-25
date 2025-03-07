@@ -50,12 +50,10 @@
   </script>
   
   <style scoped>
-  .input-field {
-    margin-bottom: 8px;
-  }
   
   input {
     width: 100%;
+    margin-bottom: 8px;
     padding: 18px 0 16px;
     box-sizing: border-box;
     font-family: inherit;
