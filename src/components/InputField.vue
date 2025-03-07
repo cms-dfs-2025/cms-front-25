@@ -50,6 +50,10 @@
   </script>
   
   <style scoped>
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 303956a7f9019582d1adc792451395408d5c5899
   input {
     width: 100%;
     margin-bottom: 8px;
