@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = '0JwF/CsIJ827bqTv8OL/yA==GtTI1tBengHE2BmU';
+// здесь объявлялся ключ, чего нельзя делать. Пока не поправим, код работать не будет
 const BASE_URL = 'https://api.api-ninjas.com/v1';
 
 const apiNinjas = axios.create({
