@@ -1,20 +1,20 @@
 <template>
-  <div class="login-form">
-    <h2 class="form-header">Войти в систему</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="login-fields">
-        <InputField
-          type="text"
-          id="email"
-          :class="{'input-error': showErrors && emailError}"
-          v-model="email"
-          placeholder="Почта*"
-          :error="emailError"
-          :showErrors="showErrors"
-          @reset-error="resetFieldError('email', 'emailError')"
-        />
-        
-        <InputField
+  <div class="login-container">
+    <div class="login-form">
+      <h2 class="form-header">Войти в систему</h2>
+      <form @submit.prevent="handleSubmit">
+        <div class="login-fields">
+          <InputField
+            type="text"
+            id="email"
+            :class="{'input-error': showErrors && emailError}"
+            v-model="email"
+            placeholder="Почта*"
+            :error="emailError"
+            :showErrors="showErrors"
+            @reset-error="resetFieldError('email', 'emailError')"
+          />
+          <InputField
             type="password"
             id="password"
             :class="{'input-error': showErrors && passwordError}"
@@ -23,18 +23,11 @@
             :error="passwordError"
             :showErrors="showErrors"
             @reset-error="resetFieldError('password', 'passwordError')"
-        />
-      </div>
-      <!-- Внутри button 
-       была ещё строка :disabled="isButtonDisabled" для смены стиля 
-       кнопки, но в силу непонятностей с тем, в какой момент мы эту 
-       кнопку должны заблочить, строка пока была убрана-->
-      <button 
-        type="submit"
-      >
-      Войти 
-      </button>
-    </form>
+          />
+        </div>
+        <button type="submit">Войти</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -113,6 +106,15 @@ methods: {
 </script>
 
 <style scoped>
+
+.login-container {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; /* Центрирование по вертикали */
+  min-height: 100vh; /* На всю высоту экрана */
+  background-color: white; /* Фон для наглядности */
+}
+
 .login-form {
   width: 326px;
   
