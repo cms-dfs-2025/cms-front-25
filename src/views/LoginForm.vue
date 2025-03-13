@@ -1,40 +1,42 @@
 <template>
-  <div class="login-form">
-    <h2 class="form-header">Войти в систему</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="login-fields">
-        <InputField
-          type="text"
-          id="email"
-          :class="{'input-error': showErrors && emailError}"
-          v-model="email"
-          placeholder="Почта*"
-          :error="emailError"
-          :showErrors="showErrors"
-          @reset-error="resetFieldError('email', 'emailError')"
-        />
-        
-        <InputField
-            type="password"
-            id="password"
-            :class="{'input-error': showErrors && passwordError}"
-            v-model="password"
-            placeholder="Пароль*"
-            :error="passwordError"
+  <div class="login-page">
+    <div class="login-form">
+      <h2 class="form-header">Войти в систему</h2>
+      <form @submit.prevent="handleSubmit">
+        <div class="login-fields">
+          <InputField
+            type="text"
+            id="email"
+            :class="{'input-error': showErrors && emailError}"
+            v-model="email"
+            placeholder="Почта*"
+            :error="emailError"
             :showErrors="showErrors"
-            @reset-error="resetFieldError('password', 'passwordError')"
-        />
-      </div>
-      <!-- Внутри button 
-       была ещё строка :disabled="isButtonDisabled" для смены стиля 
-       кнопки, но в силу непонятностей с тем, в какой момент мы эту 
-       кнопку должны заблочить, строка пока была убрана-->
-      <button 
-        type="submit"
-      >
-      Войти 
-      </button>
-    </form>
+            @reset-error="resetFieldError('email', 'emailError')"
+          />
+          
+          <InputField
+              type="password"
+              id="password"
+              :class="{'input-error': showErrors && passwordError}"
+              v-model="password"
+              placeholder="Пароль*"
+              :error="passwordError"
+              :showErrors="showErrors"
+              @reset-error="resetFieldError('password', 'passwordError')"
+          />
+        </div>
+        <!-- Внутри button 
+        была ещё строка :disabled="isButtonDisabled" для смены стиля 
+        кнопки, но в силу непонятностей с тем, в какой момент мы эту 
+        кнопку должны заблочить, строка пока была убрана-->
+        <button 
+          type="submit"
+        >
+        Войти 
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -113,14 +115,23 @@ methods: {
 </script>
 
 <style scoped>
+
+.login-page {
+  display: flex;
+  height: 100vh;
+
+  justify-content: center;
+  align-items: center;
+}
+
 .login-form {
   width: 326px;
   
   margin: auto;
   padding: 0;
 
-  font-family: "FavoritPro-Regular";
-  color: #000000;
+  font-family: "FavoritPro";
+  color: var(--form-title-color);
   
   border: none;
 }
@@ -131,6 +142,7 @@ methods: {
   margin-bottom: 40px;
 
   text-align: left;
+  letter-spacing: var(--form-letter-spacing-title);
 
   font-size: 36px;
   font-weight: 500;
@@ -149,10 +161,12 @@ button {
   text-align: center;
   font-size: 16px;
   line-height: 20.8px;
+  font-weight: 350;
   
-  background-color: #222222;
-  color: white;
-  
+  background-color: var(--form-button-background-color);
+  color: var(--form-button-color);
+  letter-spacing: var(--form-letter-spacing-button);
+
   border: none;
 }
 
@@ -165,12 +179,12 @@ button:active {
 }
 
 button:focus {
-  box-shadow: inset 0 0 0 2px #F2DD6B;
+  box-shadow: inset 0 0 0 2px var(--form-button-border-color);
 }
 
 button:disabled {
-  color: rgba(34, 34, 34, 0.3);
-  opacity: 0.3;
+  background-color: var(--form-button-disabled-color);
+  color: var(--form-button-disabled-color);
 }
 
 </style>

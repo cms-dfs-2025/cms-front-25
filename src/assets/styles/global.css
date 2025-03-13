@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "FavoritPro";
+    src: url('../fonts/FavoritPro-Book.otf') format('opentype');
+    font-weight: 350;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "FavoritPro";
+    src: url('../fonts/FavoritPro-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "FavoritPro";
+    src: url('../fonts/FavoritPro-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --color-black: #000;
+    --color-white: #FFF;
+    --color-gray-dark: #222;
+    --color-yellow: #F2DD6B;
+    --color-red: #CB3D35;
+
+    --color-gray-dark-rgb: 34, 34, 34;
+    --opacity-low: 0.3;
+    --opacity-medium: 0.5;
+
+    --letter-spacing-wide: -0.03rem;
+    --letter-spacing-narrow: -0.04rem;
+
+    --form-title-color: var(--color-black);
+    --form-placeholder-color: var(--color-gray-dark);
+    --form-button-color: var(--color-white);
+    --form-button-disabled-color: rgba(var(--color-gray-dark-rgb), var(--opacity-low));
+    --form-button-background-color: var(--color-gray-dark);
+    --form-button-border-color: var(--color-yellow);
+    --input-text-color: var(--color-gray-dark);
+    --input-warning-color: var(--color-red);
+    --input-placeholder-color: rgba(var(--color-gray-dark-rgb), var(--opacity-medium));
+
+    --form-letter-spacing-title: var(--letter-spacing-narrow);
+    --form-letter-spacing-input: var(--letter-spacing-wide);
+    --form-letter-spacing-bottom: var(--letter-spacing-wide);
+}

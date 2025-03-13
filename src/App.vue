@@ -13,5 +13,5 @@ export default {
 </script>
 
 <style>
-/* Глобальные стили, пока не знаю, какие у нас - шрифт, сброс автоматических настроек браузеров? */
+@import '@/assets/styles/global.css'
 </style>
