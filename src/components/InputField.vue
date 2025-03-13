@@ -58,23 +58,20 @@
     font-family: inherit;
     font-weight: 350;
     font-size: 16px;
-    color: #222222;
+    color: var(--input-text-color);
+    letter-spacing: var(--form-letter-spacing-input);
     line-height: 20.8px;
     border: none;
-    border-bottom: 1px solid #22222277;
-  }
-  
-  input::placeholder {
-    color: #22222277;
+    border-bottom: 1px solid var(--input-placeholder-color);
   }
   
   input.input-error {
-    color: #cb3d35;
-    border-bottom-color: #cb3d35;
+    color: var(--input-warning-color);
+    border-bottom-color: var(--input-warning-color);
   }
   
   input.input-error::placeholder {
-    color: #cb3d35;
+    color: var(--input-warning-color);
   }
   
   .error-message {
@@ -83,6 +80,6 @@
     text-align: left;
     font-size: 12px;
     font-weight: 350;
-    color: #cb3d35;
+    color: var(--input-warning-color);
   }
   </style>
