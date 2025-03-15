@@ -56,7 +56,7 @@
     data() {
       return {
         editor: null, // Экземпляр редактора
-        isEditing: false, // Режим редактирования (видимость панели инструментов)
+        isEditing: false, // Режим редактирования 
       }
     },
     mounted() {
