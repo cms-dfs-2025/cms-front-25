@@ -16,18 +16,7 @@
 </template>
 
 <script>
-import { getRandomQuote } from '@/services/apiNinjas';
-
-export const getRandomQuote = async () => {
-  try {
-    const response = await apiNinjas.get('/quotes');
-    console.log('Response:', response); // Отладочный вывод
-    return response.data;
-  } catch (error) {
-    console.error('Ошибка при запросе к API Ninjas:', error);
-    throw error;
-  }
-};
+import { getRandomQuote } from '@/services/apiNinjas'; // Импортируем функцию из apiNinjas.js
 
 export default {
   data() {
@@ -42,7 +31,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        const quotes = await getRandomQuote();
+        const quotes = await getRandomQuote(); // Используем импортированную функцию
         this.quote = quotes[0];
       } catch (error) {
         this.error = 'Не удалось загрузить цитату';
@@ -61,16 +50,16 @@ export default {
 <style scoped>
 .quotes-container {
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  padding-top: 20px; /* Отступ от формы */
+  justify-content: center;
+  padding-top: 20px;
 }
 
 .random-quotes {
-  width: 326px; /* Такая же ширина, как у формы */
+  width: 326px;
   padding: 20px;
-  background-color: white; /* Фон цитаты */
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для цитаты */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
