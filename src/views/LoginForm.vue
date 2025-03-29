@@ -40,6 +40,10 @@
   </div>
 </template>
 
+<script setup>
+  
+</script>
+
 <script>
 import InputField from '@/components/InputField.vue';
 
