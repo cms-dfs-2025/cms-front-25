@@ -1,15 +1,18 @@
 <template>
-  <LoginForm />
+  <div id="app">
+    <nav>
+      <router-link to="/signup">Регистрация</router-link> |
+      <router-link to="/test">Тестовая (компонент TextEitor)</router-link> |
+      <router-link to="/auth/login">Регистрация с API</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import LoginForm from '@/views/LoginForm.vue';
+/*import { RouterLink } from 'vue-router';*/
 
-export default {
-  components: {
-    LoginForm,
-  },
-};
+
 </script>
 
 <style>
