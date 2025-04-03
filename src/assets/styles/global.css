@@ -32,6 +32,7 @@
     --color-gray-dark-rgb: 34, 34, 34;
     --opacity-low: 0.3;
     --opacity-medium: 0.5;
+    --opacity-high: 1;
 
     --letter-spacing-wide: -0.03rem;
     --letter-spacing-narrow: -0.04rem;
@@ -45,6 +46,8 @@
     --input-text-color: var(--color-gray-dark);
     --input-warning-color: var(--color-red);
     --input-placeholder-color: rgba(var(--color-gray-dark-rgb), var(--opacity-medium));
+    --input-label-color: rgba(var(--color-gray-dark-rgb), var(--opacity-medium));
+    --input-border-color: rgba(var(--color-gray-dark), var(--opacity-high));
 
     --form-letter-spacing-title: var(--letter-spacing-narrow);
     --form-letter-spacing-input: var(--letter-spacing-wide);

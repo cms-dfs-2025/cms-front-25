@@ -4,23 +4,25 @@
         <h2 class="form-header">Войти в систему</h2>
         <form @submit.prevent="handleSubmit">
           <div class="login-fields">
-            <InputField
+            <inputField2
               type="text"
               id="email"
               :class="{'input-error': showErrors && emailError}"
+              :inputClass="{'with-animation': true}"
               v-model="email"
-              placeholder="Почта*"
+              label="Почта*"
               :error="emailError"
               :showErrors="showErrors"
               @reset-error="resetFieldError('email', 'emailError')"
             />
             
-            <InputField
+            <InputField2
                 type="password"
                 id="password"
                 :class="{'input-error': showErrors && passwordError}"
+                :inputClass="{'with-animation': true}"
                 v-model="password"
-                placeholder="Пароль*"
+                label="Пароль*"
                 :error="passwordError"
                 :showErrors="showErrors"
                 @reset-error="resetFieldError('password', 'passwordError')"
@@ -50,6 +52,7 @@
  /*   import axios from 'axios';*/
 
     import InputField from '@/components/InputField.vue';
+    import InputField2 from '@/components/InputField2.vue'
     import api from '@/api';
     import { useRouter } from 'vue-router';
     
