@@ -4,7 +4,7 @@
             <input
             :type="type"
             :id="id"
-            :class="{'input-error': showErrors && emailError}"
+            :class="{'input-error': error}"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             @focus="resetError"
@@ -14,8 +14,10 @@
             <label 
               :for="id"
               :class="{
-                'label-error-hidden': showErrors && error,
-                
+                'label-error-hidden': showErrors && error && !isEmptyError,
+                'label-error': showErrors && isEmptyError,
+                'label-simple': !withAnimation,
+                'label-hidden': !withAnimation && modelValue
               }"
             >
               {{ label }}
@@ -61,9 +63,17 @@
         type: Boolean,
         default: false,
       },
+      isEmptyError: {
+        type: Boolean,
+        default: false,
+      },
       addIcon: {
         type: Boolean,
-        default: false
+        default: false,
+      },
+      withAnimation: {
+        type: Boolean,
+        default: true,
       }
     },
     methods: {
@@ -76,6 +86,7 @@
   </script>
   
   <style scoped>
+  /*.input-field opacity*/
   .input-field {
     position: relative;
     display: flex;
@@ -98,25 +109,15 @@
     line-height: 20.8px;
     border: none;
     border-bottom: 1px solid var(--input-label-color);
-
-
   }
   
-  input:hover {
-    border-bottom-color: var(--input-border-color);
+  .input-field input:not(.input-error):hover:not(:focus) {
+    border-bottom-color: var(--input-border-color-hover);
   }
 
-  input.input-error {
-    color: var(--input-warning-color);
-    border-bottom-color: var(--input-warning-color);
-  }
-  
-  input.input-error::label {
-    color: var(--input-warning-color);
-  }
-  
   .input-field input:focus {
-    outline: none;  
+    outline: none;
+      
   }
 
 .input-field label {
@@ -133,8 +134,19 @@
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-  .input-field.with-animation input:focus + label,
-  .input-field.with-animation input:not(:placeholder-shown) + label {
+  .input-field.with-animation input:not(:placeholder-shown) + label.label-error-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .input-field input:hover + label
+  /*.input-field input:hover*/ {
+    opacity: 1;
+    transition: color 150ms ease;
+  }
+  
+  .with-animation input:focus + label,
+  .with-animation input:not(:placeholder-shown) + label {
     top: 0;
     transform: translateY(0);
     opacity: 0.5;
@@ -143,16 +155,15 @@
     transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .input-field.with-animation input:not(:placeholder-shown) + label.label-error-hidden {
-    opacity: 0;
-    pointer-events: none;
+  .label-simple {
+    transition: none;
   }
 
-  .input-field input:hover + label {
-    opacity: 1;
-    transition: color 150ms ease;
+  input:focus + .label-simple,
+  .label-simple.label-hidden {
+    display: none;
   }
-  
+
   .error-message {
     margin: 0;
     padding: 0;
@@ -160,5 +171,17 @@
     font-size: 12px;
     font-weight: 350;
     color: var(--input-warning-color);
+  }
+
+  /*Поправлю позже */
+  .input-field input.input-error {
+    color: var(--input-warning-color) !important;
+    border-bottom-color: var(--input-warning-color) !important;
+  }
+  
+  input.input-error + label.label-error {
+    color: var(--input-warning-color);
+    opacity: 1;
+
   }
   </style>
