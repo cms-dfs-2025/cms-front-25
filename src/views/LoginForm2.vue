@@ -7,12 +7,13 @@
             <inputField2
               type="text"
               id="email"
-              :class="{'input-error': showErrors && emailError}"
+              
               :inputClass="{'with-animation': true}"
               v-model="email"
               label="Почта*"
               :error="emailError"
               :showErrors="showErrors"
+              :isEmptyError="emailError === 'Поле не может быть пустым'"
               @reset-error="resetFieldError('email', 'emailError')"
             />
             
@@ -25,6 +26,7 @@
                 label="Пароль*"
                 :error="passwordError"
                 :showErrors="showErrors"
+                :isEmptyError="passwordError === 'Поле не может быть пустым'"
                 @reset-error="resetFieldError('password', 'passwordError')"
             />
           </div>
@@ -32,6 +34,11 @@
           была ещё строка :disabled="isButtonDisabled" для смены стиля 
           кнопки, но в силу непонятностей с тем, в какой момент мы эту 
           кнопку должны заблочить, строка пока была убрана-->
+          
+          <div v-if="showPasswordError" class="password-reset-block">
+            Забыли пароль? <router-link to="/auth/reset-password" class="password-reset-link">Восстановить доступ</router-link>
+          </div>
+
           <button 
             type="submit"
           >
@@ -51,40 +58,56 @@
     import { ref, computed } from 'vue';
  /*   import axios from 'axios';*/
 
-    import InputField from '@/components/InputField.vue';
     import InputField2 from '@/components/InputField2.vue'
     import api from '@/api';
     import { useRouter } from 'vue-router';
+    import { watch } from 'vue';
     
-/*    const router = useRouter()*/
+    const router = useRouter()
 
     const email = ref('');
     const password = ref('');
     const emailError = ref('');
     const passwordError = ref('');
     const showErrors = ref(false);
+    const showPasswordError = ref(false);
     const isLoading = ref(false);
 
+    watch(password, (newValue) => {
+    if (newValue) {
+        showPasswordError.value = false;
+    }
+    });
     const isButtonDisabled = computed(() => {
       return !email.value || !password.value || emailError.value || passwordError.value || isLoading.value;
     });
+
+    // Рандомная проверка пароля (пока бэка нет)
+    const checkPassword = () => {
+        return Math.random() > 0.9;
+    };
 
     const validateEmail = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email.value) {
             emailError.value = 'Поле не может быть пустым';
+            return false;
         } else if (!emailRegex.test(email.value)) {
             emailError.value = 'Неверный почтовый адрес';
+            return false;
         } else {
             emailError.value = '';
+            return true;
         }
     };
 
     const validatePassword = () => {
         if (!password.value) {
             passwordError.value = 'Поле не может быть пустым';
+            return false;
         } else {
             passwordError.value = '';
+            return true;
         }
     };
 
@@ -108,23 +131,34 @@
             field.style.borderBottomColor = '#cb3d35';
         }
     };
-
+    
     const handleSubmit = async () => {
         showErrors.value = true;
-        validateEmail();
-        validatePassword();
-
-        if (emailError.value || passwordError.value) {
-            if (emailError.value) setFieldErrorStyle('email');
-            if (passwordError.value) setFieldErrorStyle('password');
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword(); // Здесь всего лишь проверка на пустоту поля
+        
+        if (!isEmailValid || !isPasswordValid) {
+            showPasswordError.value = false; // Мы не забыли пароль, просто поле не заполнили или почту криво ввели
             return;
         }
 
+        const isPasswordCorrect = checkPassword();
+
+        if (!isPasswordCorrect) {
+            passwordError.value = 'Пароль неверный';
+            showPasswordError.value = true;
+            return;
+        }
+
+        showPasswordError.value = false;
+
         try {
+            /*
             await api.post('/auth/login', {
                 email: email.value,
                 password: password.value
             });
+            */
             isLoading.value = true;
             const response = await api.post('/auth/login', {
             email: email.value,
@@ -141,23 +175,25 @@
             // Обработка ошибок сервера (использовала оператор "?.")
             if (error.response?.status === 401) {
                 // Ошибка авторизации
-                emailError.value = 'Неверный email или пароль';
+                emailError.value = 'Неверный email';
             } else if (error.response?.status === 500) {
                 // Ошибка сервера
                 emailError.value = 'Сервер недоступен';
-            } else {
+            } /*else {
                 // Другие ошибки (нет интернета, неправильный URL и т.д.)
                 emailError.value = 'Ошибка соединения';
-            }
+            }*/
         } finally {
             isLoading.value = false;
         }
+            
     };
 
     const testHttpbin = async () => {
       try {
         const response = await fetch('https://httpbin.org/post', {
           method: 'POST',
+          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -214,6 +250,21 @@
     margin-bottom: 24px;
 }
 
+.password-reset-block {
+    margin: 0;
+    padding: 0;
+
+    margin-bottom: 24px;
+
+    color: #222;
+    font-size: 12px;
+    letter-spacing: -0.03em;
+    line-height: 130%;
+}
+
+.password-reset-link:visited {
+    color:#222;
+}
 button {
     width: 100%;
     padding: 16px 24px;
