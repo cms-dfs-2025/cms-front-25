@@ -15,7 +15,7 @@
                 :showErrors="showErrors"
                 :isEmptyError="passwordError === 'Поле не может быть пустым'"
                 :withAnimation="false"
-                @reset-error="resetFieldError('passwordError')"
+                @reset-error="passwordError = ''"
             />
             
             <InputField2
@@ -29,7 +29,7 @@
                 :showErrors="showErrors"
                 :isEmptyError="passwordRepeatError === 'Поле не может быть пустым'"
                 :withAnimation="false"
-                @reset-error="resetFieldError('passwordRepeatError')"
+                @reset-error="passwordError = ''"
             />
           </div>
           <button type="submit" :disabled="isButtonDisabled">
