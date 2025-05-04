@@ -140,7 +140,7 @@
   }
 
   .input-field input:hover + label
-  /*.input-field input:hover*/ {
+  {
     opacity: 1;
     transition: color 150ms ease;
   }

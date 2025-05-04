@@ -37,6 +37,11 @@
     --letter-spacing-wide: -0.03em;
     --letter-spacing-narrow: -0.04em;
 
+    --font-family-base: "FavoritPro", -apple-system, sans-serif;
+    --font-weight-regular: 350;
+    --font-weight-medium: 400;
+    --font-weight-bold: 500;
+
     --form-title-color: var(--color-black);
     --form-placeholder-color: var(--color-gray-dark);
     --form-button-color: var(--color-white);
@@ -73,4 +78,52 @@ input:-moz-autofill,
 input:-moz-autofill:hover,
 input:-moz-autofill:focus {
   box-shadow: 0 0 0 1000px white inset !important;
+}
+
+input:focus {
+  outline: none;
+}
+
+
+textarea {
+  outline: none; /* Убираем outline */
+  resize: vertical; 
+  min-height: 185px; 
+  
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  color: var(--input-text-color);
+  border: none;
+  border-bottom: 1px solid var(--input-label-color);
+  width: 100%;
+  padding: 18px 0 16px;
+  background: transparent;
+
+  transition: border-color 0.3s ease;
+}
+
+/* Состояния textarea */
+textarea:hover {
+  border-bottom-color: var(--input-border-color-hover);
+}
+
+textarea:focus {
+  border-bottom-color: var(--input-label-color-hover);
+}
+
+input {
+  width: 100%;
+  height: 55px;
+  /*margin-bottom: 8px;*/
+  
+  padding: 18px 0 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-weight: 350;
+  font-size: 16px;
+  color: var(--input-text-color);
+  letter-spacing: var(--form-letter-spacing-input);
+  line-height: 20.8px;
+  border: none;
+  border-bottom: 1px solid var(--input-label-color);
 }

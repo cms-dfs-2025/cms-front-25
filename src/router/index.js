@@ -5,6 +5,7 @@ import TextEditor from '../views/TextEditor.vue';
 import LoginForm2 from '@/views/LoginForm2.vue';
 import ResetPassword from '@/views/ResetPassword.vue';
 import NewPassword from '@/views/NewPassword.vue';
+import TestView from '@/views/TestView.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/auth/create-password',
     name: 'Create',
     component: NewPassword,
+  },
+  {
+    path: '/test-type',
+    name: 'Types',
+    component: TestView,
   }
 ];
 
