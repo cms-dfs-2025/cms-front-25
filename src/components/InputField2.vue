@@ -4,10 +4,10 @@
             <input
             :type="type"
             :id="id"
-            :class="{'input-error': error}"
+            :class="{'input-error': showErrors && error}"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
-            @focus="resetError"
+            @focus="$emit('reset-error')"
             placeholder=" "
             :label="label"
             />
@@ -174,9 +174,9 @@
   }
 
   /*Поправлю позже */
-  .input-field input.input-error {
-    color: var(--input-warning-color) !important;
-    border-bottom-color: var(--input-warning-color) !important;
+  .input-field-with-error .input-field input.input-error {
+    color: var(--input-warning-color);
+    border-bottom-color: var(--input-warning-color);
   }
   
   input.input-error + label.label-error {
@@ -184,4 +184,22 @@
     opacity: 1;
 
   }
+
+
+.input-field-with-error .input-field input.input-error:-webkit-autofill,
+.input-field-with-error .input-field input.input-error:-webkit-autofill:hover,
+.input-field-with-error .input-field input.input-error:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--input-warning-color) !important;
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  border-bottom-color: var(--input-warning-color) !important;
+}
+
+/* Для Firefox */
+.input-field-with-error .input-field input.input-error:-moz-autofill,
+.input-field-with-error .input-field input.input-error:-moz-autofill:hover,
+.input-field-with-error .input-field input.input-error:-moz-autofill:focus {
+  color: var(--input-warning-color) !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+  border-bottom-color: var(--input-warning-color) !important;
+}
   </style>
