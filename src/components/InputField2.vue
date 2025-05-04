@@ -202,4 +202,8 @@
   box-shadow: 0 0 0 1000px white inset !important;
   border-bottom-color: var(--input-warning-color) !important;
 }
+
+.error-message:empty {
+  display: none;
+}
   </style>
