@@ -11,23 +11,25 @@
               :inputClass="{'with-animation': true}"
               v-model="email"
               label="Почта*"
-              :error="emailError"
+              
               :showErrors="showErrors"
               :isEmptyError="emailError === 'Поле не может быть пустым'"
-              @reset-error="resetFieldError('email', 'emailError')"
+              @reset-error="emailError = ''"
+              :error="emailError"
             />
             
             <InputField2
                 type="password"
                 id="password"
-                :class="{'input-error': showErrors && passwordError}"
+                
                 :inputClass="{'with-animation': true}"
                 v-model="password"
                 label="Пароль*"
-                :error="passwordError"
+                
                 :showErrors="showErrors"
                 :isEmptyError="passwordError === 'Поле не может быть пустым'"
-                @reset-error="resetFieldError('password', 'passwordError')"
+                @reset-error="passwordError = ''"
+                :error="passwordError"
             />
           </div>
           <!-- Внутри button 
@@ -110,7 +112,7 @@
             return true;
         }
     };
-
+/*
     const resetFieldError = (field) => {
         if (field === 'email') {
             emailError.value = '';
@@ -131,7 +133,7 @@
             field.style.borderBottomColor = '#cb3d35';
         }
     };
-    
+ */   
     const handleSubmit = async () => {
         showErrors.value = true;
         const isEmailValid = validateEmail();
