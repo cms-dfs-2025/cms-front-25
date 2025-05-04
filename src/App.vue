@@ -8,6 +8,7 @@
       <router-link to="/auth/login">Регистрация с API</router-link> |
       <router-link to="/auth/reset-password">Сброс пароля</router-link> |
       <router-link to="/auth/create-password">Новый пароль с API</router-link>
+      <router-link to="/test-type">Разные инпуты</router-link>
     </nav>
     <router-view />
   </div>

@@ -135,14 +135,48 @@
     const handleSubmit = async () => {
         showErrors.value = true;
         const isEmailValid = validateEmail();
-        const isPasswordValid = validatePassword(); // Здесь всего лишь проверка на пустоту поля
+        const isPasswordValid = validatePassword();
         
         if (!isEmailValid || !isPasswordValid) {
-            showPasswordError.value = false; // Мы не забыли пароль, просто поле не заполнили или почту криво ввели
+            showPasswordError.value = false;
             return;
         }
 
-        const isPasswordCorrect = checkPassword();
+        isLoading.value = true;
+        
+        try {
+            // Кодировка в base64
+            const authHeader = "Basic " + btoa(`${email.value}:${password.value}`);
+            console.log("Отправленный заголовок:", authHeader);
+
+            // запрос с Basic Auth
+            const response = await api.post('/api/login', {}, {
+                headers: {
+                    'Authorization': authHeader
+                }
+            });
+            
+            console.log('Успешный вход:', response.data);
+            router.push('/dashboard'); // Перенаправляем после входа
+            
+        } catch (error) {
+            if (error.response?.status === 401) {
+                passwordError.value = 'Неверный email или пароль';
+                showPasswordError.value = true;
+            } else {
+                emailError.value = 'Ошибка сервера';
+                console.error("Ошибка:", error);
+            }
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+
+
+
+
+        /*const isPasswordCorrect = checkPassword();
 
         if (!isPasswordCorrect) {
             passwordError.value = 'Пароль неверный';
@@ -151,14 +185,17 @@
         }
 
         showPasswordError.value = false;
+        
+        
+        
 
         try {
-            /*
+            
             await api.post('/auth/login', {
                 email: email.value,
                 password: password.value
             });
-            */
+            
             isLoading.value = true;
             const response = await api.post('/auth/login', {
             email: email.value,
@@ -182,12 +219,11 @@
             } /*else {
                 // Другие ошибки (нет интернета, неправильный URL и т.д.)
                 emailError.value = 'Ошибка соединения';
-            }*/
+            }
         } finally {
             isLoading.value = false;
         }
-            
-    };
+        */
 
     const testHttpbin = async () => {
       try {
