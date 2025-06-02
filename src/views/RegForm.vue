@@ -173,7 +173,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/api/signup', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +185,8 @@ const handleSubmit = async () => {
     });
 
     if (!response.ok) {
-      throw new Error('Ошибка регистрации');
+      const errorData = await response.json(); // Читаем тело ошибки
+      throw new Error(errorData.message || 'Ошибка регистрации');
     }
 
     // Перенаправляем на страницу входа после успешной регистрации

@@ -6,11 +6,13 @@ import LoginForm2 from '@/views/LoginForm2.vue';
 import ResetPassword from '@/views/ResetPassword.vue';
 import NewPassword from '@/views/NewPassword.vue';
 import TestView from '@/views/TestView.vue';
+import RegForm from '@/views/RegForm.vue';
+import WelcomeView from '@/views/WelcomeView.vue';
 
 const routes = [
   {
     path: '/signup',
-    name: 'SignUp',
+    name: 'defSignUp',
     component: LoginForm,
   },
   {
@@ -34,9 +36,19 @@ const routes = [
     component: NewPassword,
   },
   {
+    path: '/auth/signup',
+    name: 'SignUp',
+    component: RegForm,
+  },
+  {
     path: '/test-type',
     name: 'Types',
     component: TestView,
+  },
+  {
+    path: '/dashboard',
+    name: 'WelcomePage',
+    component: WelcomeView
   }
 ];
 

@@ -147,33 +147,42 @@
         isLoading.value = true;
         
         try {
-            // Кодировка в base64
-            const authHeader = "Basic " + btoa(`${email.value}:${password.value}`);
+            // Двойное base64-кодирование как указано в документации
+            const encodedHandle = btoa(email.value);
+            const authHeader = "Basic " + btoa(`${encodedHandle}:${password.value}`);
             console.log("Отправленный заголовок:", authHeader);
 
-            // запрос с Basic Auth
-            const response = await api.post('/api/login', {}, {
-                headers: {
-                    'Authorization': authHeader
-                }
+            const response = await fetch('/api/auth/login', {  // Исправленный эндпоинт
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader
+            }
             });
-            
-            console.log('Успешный вход:', response.data);
-            router.push('/dashboard'); // Перенаправляем после входа
+            if (response.status === 200) {
+            // Успешный вход, но без данных
+            router.push('/dashboard');
+            } else {
+            const errorData = await response.json();
+            throw new Error(errorData.message);
+            }
+            console.log('Успешный вход:', await response.json());
+            router.push('/dashboard');
             
         } catch (error) {
-            if (error.response?.status === 401) {
-                passwordError.value = 'Неверный email или пароль';
-                showPasswordError.value = true;
+            if (error.message === 'Basic auth error') {
+            emailError.value = 'Неверный формат авторизации';
+            } else if (error.message === 'Unauthorized') {
+            passwordError.value = 'Неверный handle или пароль';
+            showPasswordError.value = true;
             } else {
-                emailError.value = 'Ошибка сервера';
-                console.error("Ошибка:", error);
+            emailError.value = 'Ошибка сервера';
+            console.error("Ошибка:", error);
             }
         } finally {
             isLoading.value = false;
         }
-    };
-
+        };
 
 
 
