@@ -132,7 +132,7 @@ export default {
       if (!hasErrors) {
         isSubmitting.value = true
         console.log('Форма отправлена:', formData.value)
-        // Здесь будет вызов API
+        
         setTimeout(() => {
           isSubmitting.value = false
           alert('Форма успешно отправлена!')

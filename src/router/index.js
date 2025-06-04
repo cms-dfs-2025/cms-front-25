@@ -8,6 +8,7 @@ import NewPassword from '@/views/NewPassword.vue';
 import TestView from '@/views/TestView.vue';
 import RegForm from '@/views/RegForm.vue';
 import WelcomeView from '@/views/WelcomeView.vue';
+import ArticleUploadView from '@/views/ArticleUploadView.vue';
 
 const routes = [
   {
@@ -48,7 +49,12 @@ const routes = [
   {
     path: '/dashboard',
     name: 'WelcomePage',
-    component: WelcomeView
+    component: WelcomeView,
+  },
+  {
+    path: '/work/upload',
+    name: 'ArticleUpload',
+    component: ArticleUploadView
   }
 ];
 

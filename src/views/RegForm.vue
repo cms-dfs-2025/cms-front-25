@@ -232,6 +232,8 @@ const handleSubmit = async () => {
 
 .agreement-block {
   margin-bottom: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .agreement-checkbox {
@@ -241,6 +243,8 @@ const handleSubmit = async () => {
 .agreement-label {
   font-size: 12px;
   color: #222;
+  display: flex;
+  
 }
 
 .agreement-error {
@@ -298,17 +302,22 @@ button:disabled {
 }
 
 .agreement-checkbox {
+  /*display: flex;*/
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   width: 16px;
   height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   border: 1px solid #222;
   border-radius: 2px;
   outline: none;
   cursor: pointer;
   position: relative;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
+  flex-shrink: 0;
+  padding: 0;
   margin-right: 8px;
 }
 

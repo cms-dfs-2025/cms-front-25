@@ -133,7 +133,8 @@
             field.style.borderBottomColor = '#cb3d35';
         }
     };
- */   
+ */ 
+/*0406  
     const handleSubmit = async () => {
         showErrors.value = true;
         const isEmailValid = validateEmail();
@@ -150,6 +151,7 @@
             // Двойное base64-кодирование как указано в документации
             const encodedHandle = btoa(email.value);
             const authHeader = "Basic " + btoa(`${encodedHandle}:${password.value}`);
+            //const authHeader = "Basic " + btoa(`${email.value}:${password.value}`); 
             console.log("Отправленный заголовок:", authHeader);
 
             const response = await fetch('/api/auth/login', {  // Исправленный эндпоинт
@@ -159,6 +161,10 @@
                 'Authorization': authHeader
             }
             });
+            if (response.ok) {
+                
+                router.push('/dashboard');
+            } 
             if (response.status === 200) {
             // Успешный вход, но без данных
             router.push('/dashboard');
@@ -173,7 +179,7 @@
             if (error.message === 'Basic auth error') {
             emailError.value = 'Неверный формат авторизации';
             } else if (error.message === 'Unauthorized') {
-            passwordError.value = 'Неверный handle или пароль';
+            passwordError.value = 'Неверный email или пароль';
             showPasswordError.value = true;
             } else {
             emailError.value = 'Ошибка сервера';
@@ -183,6 +189,50 @@
             isLoading.value = false;
         }
         };
+0406*/
+    const handleSubmit = async () => {
+    showErrors.value = true; // Показываем ошибки валидации
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+    
+    // Если валидация не прошла, не отправляем запрос
+    if (!isEmailValid || !isPasswordValid) {
+        showPasswordError.value = false;
+        return;
+    }
+
+    isLoading.value = true;
+    
+    try {
+        const encodedHandle = btoa(email.value);
+        const authHeader = "Basic " + btoa(`${encodedHandle}:${password.value}`);
+        
+        const loginResponse = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Authorization': authHeader }
+        });
+
+        if (!loginResponse.ok) {
+            // Обработка ошибок сервера
+            if (loginResponse.status === 401) {
+                passwordError.value = 'Неверный email или пароль';
+                showPasswordError.value = true;
+            } else {
+                throw new Error('Ошибка сервера');
+            }
+            return;
+        }
+
+        // Успешная авторизация
+        localStorage.setItem('authHeader', authHeader);
+        router.push('/dashboard');
+    } catch (error) {
+        console.error("Ошибка:", error);
+        emailError.value = 'Ошибка соединения с сервером';
+    } finally {
+        isLoading.value = false;
+    }
+};
 
 
 

@@ -102,43 +102,34 @@
     };
 
     const handleSubmit = async () => {
-        showErrors.value = true;
-        const isPasswordValid = validatePassword();
-        const isPasswordRepeatValid = validatePasswordRepeat();
+  showErrors.value = true;
+  const isPasswordValid = validatePassword();
+  const isPasswordRepeatValid = validatePasswordRepeat();
 
-        if (!isPasswordValid || !isPasswordRepeatValid  || passwordsMismatch.value) {
-            return;
-        }
+  if (!isPasswordValid || !isPasswordRepeatValid || passwordsMismatch.value) {
+    return;
+  }
 
-        isLoading.value = true;
-        
-        try {
-            // Здесь будет запрос на смену пароля
-            const response = await fetch('https://httpbin.org/post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    newPassword: newPassword.value,
-                    // Нужен токен для сброса пароля?
-                }),
-            });
-            
-            const data = await response.json();
-            console.log("Ответ от сервера:", data);
-            
-            // Перенаправляем пользователя
-            //router.push('/login');
-            
-        } catch (error) {
-            console.error("Ошибка при смене пароля:", error);
-
-        } finally {
-            router.push('/auth/login');
-            isLoading.value = false;
-        }
-    };
+  isLoading.value = true;
+  
+  try {
+    // Эмуляция запроса - в реальности нужно использовать change_pw с авторизацией
+    console.log("New password:", newPassword.value);
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Имитация задержки
+    
+    // Перенаправляем с сообщением об успехе
+    router.push({ 
+      path: '/auth/login',
+      query: { passwordChanged: true }
+    });
+    
+  } catch (error) {
+    console.error("Ошибка:", error);
+    passwordError.value = "Не удалось изменить пароль";
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>
 
 <style scoped>
