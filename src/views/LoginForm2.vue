@@ -46,11 +46,7 @@
           >
           Войти 
           </button>
-          <br>
-          <br>
-          <button @click="testHttpbin">
-            Тест запроса
-          </button>
+
         </form>
       </div>
     </div>
@@ -112,84 +108,7 @@
             return true;
         }
     };
-/*
-    const resetFieldError = (field) => {
-        if (field === 'email') {
-            emailError.value = '';
-        } else if (field === 'password') {
-            passwordError.value = '';
-        }
-        const fieldElement = document.getElementById(field);
-        if (fieldElement) {
-            fieldElement.style.color = '#222222';
-            fieldElement.style.borderBottomColor = '#22222277';
-        } 
-    };
 
-    const setFieldErrorStyle = (fieldId) => {
-        const field = document.getElementById(fieldId);
-        if (field) {
-            field.style.color = '#cb3d35';
-            field.style.borderBottomColor = '#cb3d35';
-        }
-    };
- */ 
-/*0406  
-    const handleSubmit = async () => {
-        showErrors.value = true;
-        const isEmailValid = validateEmail();
-        const isPasswordValid = validatePassword();
-        
-        if (!isEmailValid || !isPasswordValid) {
-            showPasswordError.value = false;
-            return;
-        }
-
-        isLoading.value = true;
-        
-        try {
-            // Двойное base64-кодирование как указано в документации
-            const encodedHandle = btoa(email.value);
-            const authHeader = "Basic " + btoa(`${encodedHandle}:${password.value}`);
-            //const authHeader = "Basic " + btoa(`${email.value}:${password.value}`); 
-            console.log("Отправленный заголовок:", authHeader);
-
-            const response = await fetch('/api/auth/login', {  // Исправленный эндпоинт
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authHeader
-            }
-            });
-            if (response.ok) {
-                
-                router.push('/dashboard');
-            } 
-            if (response.status === 200) {
-            // Успешный вход, но без данных
-            router.push('/dashboard');
-            } else {
-            const errorData = await response.json();
-            throw new Error(errorData.message);
-            }
-            console.log('Успешный вход:', await response.json());
-            router.push('/dashboard');
-            
-        } catch (error) {
-            if (error.message === 'Basic auth error') {
-            emailError.value = 'Неверный формат авторизации';
-            } else if (error.message === 'Unauthorized') {
-            passwordError.value = 'Неверный email или пароль';
-            showPasswordError.value = true;
-            } else {
-            emailError.value = 'Ошибка сервера';
-            console.error("Ошибка:", error);
-            }
-        } finally {
-            isLoading.value = false;
-        }
-        };
-0406*/
     const handleSubmit = async () => {
     showErrors.value = true; // Показываем ошибки валидации
     const isEmailValid = validateEmail();
@@ -234,78 +153,6 @@
     }
 };
 
-
-
-
-        /*const isPasswordCorrect = checkPassword();
-
-        if (!isPasswordCorrect) {
-            passwordError.value = 'Пароль неверный';
-            showPasswordError.value = true;
-            return;
-        }
-
-        showPasswordError.value = false;
-        
-        
-        
-
-        try {
-            
-            await api.post('/auth/login', {
-                email: email.value,
-                password: password.value
-            });
-            
-            isLoading.value = true;
-            const response = await api.post('/auth/login', {
-            email: email.value,
-            password: password.value,
-            });
-            
-            // Обработка успешного входа
-            console.log('Успешный вход:', response.data);
-            // Здесь можно сохранить токен, перенаправить пользователя и т.д.
-            // localStorage.setItem('token', response.data.token);
-            // router.push('/dashboard');
-            
-        } catch (error) {
-            // Обработка ошибок сервера (использовала оператор "?.")
-            if (error.response?.status === 401) {
-                // Ошибка авторизации
-                emailError.value = 'Неверный email';
-            } else if (error.response?.status === 500) {
-                // Ошибка сервера
-                emailError.value = 'Сервер недоступен';
-            } /*else {
-                // Другие ошибки (нет интернета, неправильный URL и т.д.)
-                emailError.value = 'Ошибка соединения';
-            }
-        } finally {
-            isLoading.value = false;
-        }
-        */
-
-    const testHttpbin = async () => {
-      try {
-        const response = await fetch('https://httpbin.org/post', {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            testEmail: email.value,
-            testPassword: password.value
-          }),
-        });
-        
-        const data = await response.json();
-        console.log("Ответ от httpbin:", data);
-      } catch (error) {
-        console.error("Ошибка запроса:", error);
-      }
-    }
 </script>
   
   
